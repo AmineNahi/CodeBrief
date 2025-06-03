@@ -1,4 +1,13 @@
-// android/build.gradle
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Mise à jour de l'AGP vers 8.2.1 pour résoudre le problème avec Java 21
+        classpath 'com.android.tools.build:gradle:8.2.1'
+    }
+}
 
 allprojects {
     repositories {
@@ -12,6 +21,7 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }
