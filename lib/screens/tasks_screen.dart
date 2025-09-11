@@ -1,18 +1,20 @@
+// lib/screens/tasks_screen.dart
+import 'dart:async'; // Import nécessaire pour Timer
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:uuid/uuid.dart';
 import '../models/task.dart';
 import '../services/local_storage.dart';
 import '../screens/home_screen.dart';
+import 'about_screen.dart';
 
 class TasksScreen extends StatefulWidget {
   final String projectId;
   final String projectName;
-
-  TasksScreen({
+  const TasksScreen({
+    Key? key,
     required this.projectId,
     required this.projectName,
-  });
+  }) : super(key: key);
 
   @override
   _TasksScreenState createState() => _TasksScreenState();
@@ -23,7 +25,6 @@ class _TasksScreenState extends State<TasksScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _estimatedTimeController = TextEditingController();
   String? _selectedPriority = 'Moyenne';
-
   Timer? _timer;
   Task? _activeTask;
 
@@ -31,6 +32,12 @@ class _TasksScreenState extends State<TasksScreen> {
   void initState() {
     super.initState();
     _loadTasks();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   void _loadTasks() async {
@@ -44,9 +51,8 @@ class _TasksScreenState extends State<TasksScreen> {
 
   void _addTask(String name, int estimatedTime, String priority) {
     if (name.isEmpty) return;
-
     final newTask = Task(
-      id: Uuid().v4(),
+      id: const Uuid().v4(),
       name: name,
       projectId: widget.projectId,
       completed: false,
@@ -54,16 +60,14 @@ class _TasksScreenState extends State<TasksScreen> {
       elapsedTime: 0,
       priority: priority,
     );
-
     setState(() {
       _tasks.add(newTask);
       _tasks.sort((a, b) => a.priority.compareTo(b.priority));
     });
-
     LocalStorage.saveTasks(_tasks);
     _nameController.clear();
     _estimatedTimeController.clear();
-    _selectedPriority = 'Moyenne'; // Réinitialise la priorité
+    _selectedPriority = 'Moyenne';
   }
 
   void _markTaskAsCompleted(Task task) {
@@ -71,16 +75,15 @@ class _TasksScreenState extends State<TasksScreen> {
       task.completed = true;
       _tasks.sort((a, b) => a.completed ? 1 : -1);
     });
-
     LocalStorage.saveTasks(_tasks);
   }
 
   void _startTimer(Task task) {
+    _timer?.cancel();
     setState(() {
       _activeTask = task;
     });
-
-    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       setState(() {
         _activeTask?.elapsedTime++;
       });
@@ -122,8 +125,8 @@ class _TasksScreenState extends State<TasksScreen> {
               children: [
                 Container(
                   color: Colors.black,
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Center(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: const Center(
                     child: Text(
                       'Navigation',
                       style: TextStyle(
@@ -138,8 +141,8 @@ class _TasksScreenState extends State<TasksScreen> {
                   child: ListView(
                     children: [
                       ListTile(
-                        leading: Icon(Icons.category, color: Colors.white),
-                        title: Text(
+                        leading: const Icon(Icons.category, color: Colors.white),
+                        title: const Text(
                           'Catégories',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -152,13 +155,27 @@ class _TasksScreenState extends State<TasksScreen> {
                           );
                         },
                       ),
+                      ListTile(
+                        leading: const Icon(Icons.info, color: Colors.white),
+                        title: const Text(
+                          'À propos',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AboutScreen(),
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-
           // Section principale des tâches
           Expanded(
             child: Scaffold(
@@ -171,7 +188,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 children: [
                   Expanded(
                     child: _tasks.isEmpty
-                        ? Center(
+                        ? const Center(
                             child: Text(
                               'Aucune tâche disponible.',
                               style: TextStyle(color: Colors.white70),
@@ -185,7 +202,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 color: task.completed
                                     ? Colors.green[900]
                                     : Colors.grey[900],
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 16),
                                 child: ListTile(
                                   title: Text(
@@ -206,17 +223,17 @@ class _TasksScreenState extends State<TasksScreen> {
                                       Text(
                                         'Priorité : ${task.priority}',
                                         style:
-                                            TextStyle(color: Colors.white70),
+                                            const TextStyle(color: Colors.white70),
                                       ),
                                       Text(
                                         'Temps estimé : ${_formatTime(task.estimatedTime)}',
                                         style:
-                                            TextStyle(color: Colors.white70),
+                                            const TextStyle(color: Colors.white70),
                                       ),
                                       Text(
                                         'Temps écoulé : ${_formatTime(task.elapsedTime)}',
                                         style:
-                                            TextStyle(color: Colors.white70),
+                                            const TextStyle(color: Colors.white70),
                                       ),
                                     ],
                                   ),
@@ -226,24 +243,24 @@ class _TasksScreenState extends State<TasksScreen> {
                                       if (!task.completed) ...[
                                         if (_activeTask == task)
                                           IconButton(
-                                            icon: Icon(Icons.pause,
+                                            icon: const Icon(Icons.pause,
                                                 color: Colors.teal),
                                             onPressed: _pauseTimer,
                                           )
                                         else
                                           IconButton(
-                                            icon: Icon(Icons.play_arrow,
+                                            icon: const Icon(Icons.play_arrow,
                                                 color: Colors.teal),
                                             onPressed: () =>
                                                 _startTimer(task),
                                           ),
                                         IconButton(
-                                          icon: Icon(Icons.stop,
+                                          icon: const Icon(Icons.stop,
                                               color: Colors.redAccent),
                                           onPressed: () => _stopTimer(task),
                                         ),
                                         IconButton(
-                                          icon: Icon(Icons.check,
+                                          icon: const Icon(Icons.check,
                                               color: Colors.green),
                                           onPressed: () =>
                                               _markTaskAsCompleted(task),
@@ -262,10 +279,10 @@ class _TasksScreenState extends State<TasksScreen> {
                       onPressed: _showAddTaskDialog,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 32, vertical: 16),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Ajouter une tâche',
                         style: TextStyle(color: Colors.black, fontSize: 16),
                       ),
@@ -286,7 +303,7 @@ class _TasksScreenState extends State<TasksScreen> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.grey[900],
-          title: Text(
+          title: const Text(
             'Ajouter une tâche',
             style: TextStyle(color: Colors.white),
           ),
@@ -295,10 +312,10 @@ class _TasksScreenState extends State<TasksScreen> {
             children: [
               TextField(
                 controller: _nameController,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Nom de la tâche',
-                  hintStyle: TextStyle(color: Colors.white70),
+                  hintStyle: const TextStyle(color: Colors.white70),
                   filled: true,
                   fillColor: Colors.grey[800],
                   border: OutlineInputBorder(
@@ -307,14 +324,14 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _estimatedTimeController,
                 keyboardType: TextInputType.number,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Temps estimé (secondes)',
-                  hintStyle: TextStyle(color: Colors.white70),
+                  hintStyle: const TextStyle(color: Colors.white70),
                   filled: true,
                   fillColor: Colors.grey[800],
                   border: OutlineInputBorder(
@@ -323,7 +340,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               DropdownButtonFormField<String>(
                 value: _selectedPriority,
                 items: ['Haute', 'Moyenne', 'Faible']
@@ -338,7 +355,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   });
                 },
                 dropdownColor: Colors.grey[800],
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.grey[800],
@@ -352,7 +369,7 @@ class _TasksScreenState extends State<TasksScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(
+              child: const Text(
                 'Annuler',
                 style: TextStyle(color: Colors.teal),
               ),
@@ -367,7 +384,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
-              child: Text('Ajouter'),
+              child: const Text('Ajouter'),
             ),
           ],
         );
