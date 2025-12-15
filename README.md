@@ -47,27 +47,32 @@
 - Chrome ou un émulateur Android
 
 **Vérifier l’environnement :**
-```bash
+```
 flutter doctor
+```
 1. Cloner le projet
 
-Bash
+```
 git clone [https://github.com/ton-username/code_brief.git](https://github.com/ton-username/code_brief.git)
 cd code_brief
-2. Installer les dépendances
-
-Bash
+```
+Installer les dépendances
+```
 flutter pub get
+```
 3. Lancer l’application
 
 Web :
 
-Bash
+```
 flutter run -d chrome
+```
 Android :
 
-Bash
+```
 flutter run
+```
+
 🎨 Icône & Branding
 Outil : Icône générée avec flutter_launcher_icons
 
@@ -83,8 +88,9 @@ lib/
  ├── screens/      # Écrans de l'application
  └── main.dart     # Point d'entrée
 🧪 Tests
-Bash
+```
 flutter test
+```
 📌 État du projet
 ✅ Application stable et fonctionnelle
 
