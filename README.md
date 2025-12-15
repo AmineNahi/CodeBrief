@@ -1,61 +1,58 @@
-CodeBrief
-CodeBrief est une application Flutter de gestion de projets et de tâches destinée aux développeurs. Elle permet d’organiser des projets par catégories, de suivre les technologies utilisées et d’ajouter des liens utiles (GitHub, documentation, etc.).
+# 🚀 CodeBrief
 
-✨ Fonctionnalités
-📂 Organisation : Gestion efficace de catégories.
+> **CodeBrief** est une application Flutter de gestion de projets et de tâches destinée aux développeurs.
+> Elle permet d’organiser des projets par catégories, de suivre les technologies utilisées et d’ajouter des liens utiles (GitHub, documentation, etc.).
 
-📁 Projets : Création et suivi de projets de développement.
+---
 
-📝 Tâches : Gestion des tâches détaillée par projet.
+## ✨ Fonctionnalités
 
-🛠 Tech Stack : Ajout et visualisation des technologies utilisées.
+- 📂 **Catégories** : Organisation structurée des projets.
+- 📁 **Projets** : Création et suivi de projets.
+- 📝 **Tâches** : Gestion des tâches par projet.
+- 🛠 **Technologies** : Ajout des technologies utilisées.
+- 🔗 **Liens** : Intégration de liens GitHub et ressources externes.
+- 💾 **Stockage** : Persistance locale des données.
+- 🎨 **UI** : Interface Material Design (mode sombre).
+- 🌐 **Support** : Web, Android et Desktop.
 
-🔗 Ressources : Liens rapides vers GitHub ou des documentations externes.
+---
 
-💾 Persistance : Stockage local des données (pas de perte au redémarrage).
+## 🛠️ Stack technique
 
-🎨 UI/UX : Interface Material Design avec un thème sombre adapté aux devs.
+- **Flutter** (SDK ^3.6.0)
+- **Dart**
+- **Material Design**
+- `shared_preferences`
+- `uuid`
 
-🌐 Multi-plateforme : Support Web, Android et Desktop.
+---
 
-🛠️ Stack technique
-Framework : Flutter (SDK ^3.6.0)
+## 📱 Plateformes supportées
 
-Langage : Dart
+| Plateforme | Statut |
+|:---|:---|
+| Web (Chrome) | ✅ |
+| Android | ✅ |
+| Linux Desktop | ✅ |
+| iOS | ⚠️ Configuration requise |
 
-Design System : Material Design
+---
 
-Dépendances clés :
+## 🚀 Installation
 
-shared_preferences (Stockage local)
+### Prérequis
 
-uuid (Génération d'identifiants uniques)
+- Flutter installé
+- Chrome ou un émulateur Android
 
-📱 Plateformes supportées
-Plateforme	Statut
-Web (Chrome)	✅ Fonctionnel
-Android	✅ Fonctionnel
-Linux Desktop	✅ Fonctionnel
-iOS	⚠️ Configuration requise
-🚀 Installation
-Prérequis
-
-Assurez-vous d'avoir installé :
-
-Flutter SDK
-
-Chrome (pour le web) ou un émulateur Android.
-
-Vérifier l’environnement :
-
-Bash
+**Vérifier l’environnement :**
+```bash
 flutter doctor
 1. Cloner le projet
 
-Remplacez ton-username par votre nom d'utilisateur GitHub.
-
 Bash
-git clone https://github.com/ton-username/code_brief.git
+git clone [https://github.com/ton-username/code_brief.git](https://github.com/ton-username/code_brief.git)
 cd code_brief
 2. Installer les dépendances
 
@@ -63,56 +60,48 @@ Bash
 flutter pub get
 3. Lancer l’application
 
-Pour le Web :
+Web :
 
 Bash
 flutter run -d chrome
-Pour Android :
+Android :
 
 Bash
 flutter run
 🎨 Icône & Branding
-Outil : Icônes générées avec flutter_launcher_icons.
+Outil : Icône générée avec flutter_launcher_icons
 
-Web Favicon : web/favicon.png.
+Web Favicon : web/favicon.png
 
-Titre Web : <title>CodeBrief</title> défini dans index.html.
+Nom Web : <title>CodeBrief</title>
 
 📂 Structure du projet
-Voici l'arborescence simplifiée du code source :
-
 Plaintext
 lib/
-├── models/       # Modèles de données (Projet, Tâche, Catégorie)
-├── services/     # Logique métier et stockage (SharedPrefs)
-├── screens/      # Écrans de l'interface utilisateur
-└── main.dart     # Point d'entrée de l'application
+ ├── models/       # Modèles de données
+ ├── services/     # Services (ex: stockage local)
+ ├── screens/      # Écrans de l'application
+ └── main.dart     # Point d'entrée
 🧪 Tests
-Pour lancer les tests unitaires et widgets :
-
 Bash
 flutter test
-📌 État du projet & Roadmap
-État actuel : ✅ Application stable et fonctionnelle (MVP).
+📌 État du projet
+✅ Application stable et fonctionnelle
 
-Améliorations futures envisagées :
+Améliorations possibles
 
-[ ] Synchronisation cloud (Firebase ou Supabase).
+[ ] Synchronisation cloud
 
-[ ] Authentification utilisateur.
+[ ] Authentification utilisateur
 
-[ ] Export des données de projets (JSON/PDF).
+[ ] Export des projets
 
-[ ] Mode collaboratif.
+[ ] Mode collaboratif
 
-[ ] Système de notifications de rappel.
+[ ] Notifications
 
 👤 Auteur
-Amine
-
-Développeur Flutter
-
-Projet personnel
+Amine Développeur Flutter Projet personnel
 
 📄 Licence
-Ce projet est privé et destiné à un usage personnel ou éducatif.
+Projet privé – usage personnel ou éducatif.
