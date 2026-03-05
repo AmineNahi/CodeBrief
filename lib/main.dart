@@ -10,7 +10,7 @@ class TaskManagerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Retire le bandeau "Debug" pour plus de propreté
-      title: 'Task Manager',
+      title: 'Code Brief',
       theme: _buildAppTheme(),
       home: HomeScreen(),
     );
